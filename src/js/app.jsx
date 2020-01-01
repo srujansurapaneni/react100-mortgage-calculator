@@ -9,11 +9,22 @@ export default class App extends React.Component {
       value: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.calculateMortgage = this.calculateMortgage.bind(this);
   }
   handleChange(event) {
     let nam = event.target.name;
     let val = event.target.value;
     this.setState({[nam]: val});
+  }
+  calculateMortgage(event) {
+    event.preventDefault();
+    let principle = this.state['balance'];
+    let mrate = this.state['rate']/12;
+    let mterm = this.state['term']*12;
+    let mpayment ;
+    console.log(principle);
+    console.log(mrate);
+    console.log(mterm);
   }
   render() {
     return (
@@ -23,16 +34,19 @@ export default class App extends React.Component {
         <form>
           <label>
           Loan Balance: 
-            <input type="text" name={"loan balance"} onChange={this.handleChange} placeholder="Enter Value..."/>
+            <input type="text" name="balance" onChange={this.handleChange} placeholder="Enter Value..."/>
           </label>
           <label>
           Interest Rate (%): 
-            <input type="text" name={"interest rate"} onChange={this.handleChange} placeholder="Enter Value..."/>
+            <input type="text" name="rate" onChange={this.handleChange} placeholder="Enter Value..."/>
           </label>
           <label>
           Loan Term (years): 
-            <input type="text" name={"loan term"} onChange={this.handleChange} placeholder="Enter Value..."/>
+            <input type="text" name="term" onChange={this.handleChange} placeholder="Enter Value..."/>
           </label>
+          <p>
+          <button name="submit" onClick={this.calculateMortgage}>Calculate</button>
+          </p>
         </form>
       </div>
     );
