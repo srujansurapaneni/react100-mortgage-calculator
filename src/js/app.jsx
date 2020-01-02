@@ -33,7 +33,7 @@ export default class App extends React.Component {
     return (
       <div className='container'>
         <title>Mortgage Calculator</title>
-        <p>Mortgage Calculator</p>
+        <h3>Mortgage Calculator</h3>
         <form>
           <label>
           Loan Balance: 
@@ -45,7 +45,14 @@ export default class App extends React.Component {
           </label>
           <label>
           Loan Term (years): 
-            <input type="text" name="term" onChange={this.handleChange} placeholder="Enter Value..."/>
+            <select name="term" onChange={this.handleChange}>
+            <option value=""></option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            </select>
+            <input name="term"/>
           </label>
           <p>
           <button name="submit" onClick={this.calculateMortgage}>Calculate</button>
