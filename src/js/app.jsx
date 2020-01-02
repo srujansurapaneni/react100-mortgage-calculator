@@ -7,6 +7,7 @@ export default class App extends React.Component {
     this.state = {
       name: '',
       value: '',
+      mortgage: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.calculateMortgage = this.calculateMortgage.bind(this);
@@ -19,14 +20,16 @@ export default class App extends React.Component {
   calculateMortgage(event) {
     event.preventDefault();
     let principle = this.state['balance'];
-    let mrate = this.state['rate']/12;
+    let mrate = (this.state['rate']/100)/12;
     let mterm = this.state['term']*12;
-    let mpayment ;
-    console.log(principle);
-    console.log(mrate);
-    console.log(mterm);
+    let num = Math.pow(1+mrate,mterm);
+    let denom = (Math.pow(1+mrate,mterm)-1);
+    let mpayment = principle * ((mrate * num)/denom);
+    let mortgage = mpayment.toFixed(2);
+    this.setState({mortgage: mortgage});
   }
   render() {
+    const monthly = this.state['mortgage'];
     return (
       <div className='container'>
         <title>Mortgage Calculator</title>
@@ -47,6 +50,7 @@ export default class App extends React.Component {
           <p>
           <button name="submit" onClick={this.calculateMortgage}>Calculate</button>
           </p>
+          <div id="output">{monthly}</div>
         </form>
       </div>
     );
